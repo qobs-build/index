@@ -1,0 +1,40 @@
+[package]
+name = "raylib"
+description = "A simple and easy-to-use library to enjoy videogames programming"
+authors = ["raysan5"]
+
+[target]
+lib = true
+sources = [
+    "src/raudio.c",
+    "src/rcore.c",
+    "src/rmodels.c",
+    "src/rshapes.c",
+    "src/rtext.c",
+    "src/rtextures.c",
+    "src/utils.c",
+]
+headers = ["src/raylib.h", "src/rcamera.h", "src/rlgl.h", "src/raymath.h"]
+
+# TODO: use PLATFORM_DESKTOP_RGFW
+
+[target.'target_os == "windows"']
+defines = { PLATFORM_DESKTOP = "" }
+headers = ["src/external/glfw/include"]
+sources = ["src/rglfw.c"]
+links = ["winmm", "gdi32", "opengl32"]
+
+[target.'target_os == "linux"']
+defines = { PLATFORM_DESKTOP = "" }
+headers = ["src/external/glfw/include"]
+sources = ["src/rglfw.c"]
+links = ["GL", "rt", "dl", "m", "X11"]
+
+[target.'target_os == "darwin"']
+defines = { PLATFORM_DESKTOP = "" }
+headers = ["src/external/glfw/include"]
+sources = ["src/rglfw.c"]
+links = ["Foundation", "Cocoa", "OpenGL", "CoreAudio", "CoreVideo", "IOKit"]
+
+[target.'target_os == "android"']
+defines = { PLATFORM_ANDROID = "" }
