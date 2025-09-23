@@ -1,0 +1,24 @@
+[package]
+name = "daxa"
+description = "Daxa is a convenient, simple and modern gpu abstraction built on vulkan"
+authors = ["Ipotrick"]
+
+[dependencies]
+VulkanMemoryAllocator = "gh:GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator"
+
+[target]
+lib = true
+sources = ["src/cpp_wrapper.cpp", "src/impl_*.cpp", "src/utils/impl_*.cpp"]
+headers = ["include", "{{ environ['VULKAN_SDK'] }}/Include"]
+cflags = [
+    "-std=c++20",
+    "-Wno-inline-namespace-reopened-noninline",
+    "-Wno-deprecated-declarations",
+    "-Wno-nullability-completeness",
+]
+defines = { "DAXA_CMAKE_EXPORT" = " ", "DAXA_BUILT_WITH_UTILS_TASK_GRAPH" = "true", "DAXA_BUILT_WITH_UTILS_MEM" = "true" }
+links = ["vulkan"]
+
+[target."target_os == 'linux'"]
+links = ["X11", "wayland-client"]
+defines = { "DAXA_BUILT_WITH_X11" = "true", "DAXA_BUILT_WITH_WAYLAND" = "true" }

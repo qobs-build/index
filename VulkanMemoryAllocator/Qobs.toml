@@ -1,0 +1,8 @@
+[package]
+name = "VulkanMemoryAllocator"
+description = "Easy to integrate Vulkan memory allocation library"
+authors = ["Advanced Micro Devices, Inc."]
+
+[target]
+lib = true
+headers = ["include"]
