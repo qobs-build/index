@@ -5,4 +5,5 @@ authors = ["Advanced Micro Devices, Inc."]
 
 [target]
 lib = true
+header-only = true
 headers = ["include"]
